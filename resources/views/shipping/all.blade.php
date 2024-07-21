@@ -3,9 +3,10 @@
 Shipping
 @endsection
 @section('content')
-<a href="{{route('shipping.create')}}" class="btn btn-success">Add</a>
+<a href="{{route('shipping.create')}}" class="btn btn-success mb-2">Add</a>
 
-<table class="table table-striped table-hover">
+@include('includes.success')
+<table class="table table-striped table-hover mt-2">
     <thead>
         <tr>
             <th scope="col">#</th>
@@ -33,7 +34,17 @@ Shipping
             <td>{{$shipping->description}}</td>
             <td>{{$shipping->price}}</td>
             <td>{{$shipping->status}}</td>
-            <td>edit/delete</td>
+            <td>
+                <a href="{{route('shipping.edit',$shipping->id)}}" class="btn btn-primary">Edit</a>
+            <!-- Delete link styled as a button -->
+                <a href="#" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $shipping->id }}').submit();">
+                    Delete
+                </a>
+                <form id="delete-form-{{ $shipping->id }}" action="{{ route('shipping.destroy', $shipping->id) }}" method="POST" style="display:none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            </td>
         </tr>
         @empty
         <tr>

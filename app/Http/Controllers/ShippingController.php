@@ -62,24 +62,46 @@ class ShippingController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Shipping $shipping)
     {
-        //
+        return view('shipping.edit',[
+            'shipping' => $shipping
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, string $id)
+    public function update(UpdateRequest $request, Shipping $shipping)
     {
-        //
+        if ($request->file('image')) {
+            //remove old image
+            $this->deleteImage(Shipping::DISK_NAME,$shipping->image);
+            //add new image
+            $image = $this->insertImage($request->code,$request->image,Shipping::PATH_SHIPPING);
+            $shipping->update(array_merge($request->validated(),[
+                'image' => $image
+            ]));
+        }else{
+            $shipping->update($request->validated());
+        }
+        return redirect()->route('shipping.index')->with([
+            'success' => 'Shipping Updated Successfully',
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Shipping $shipping)
     {
         //
+        if($shipping){
+            $this->deleteImage(Shipping::DISK_NAME,$shipping->image);
+            $shipping->delete();
+        }
+        return redirect()->route('shipping.index')->with([
+            'success' => 'Shipping Deleted Successfully',
+        ]);
     }
 }
