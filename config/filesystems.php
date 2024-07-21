@@ -36,6 +36,11 @@ return [
             'throw' => false,
         ],
 
+        'shipping' => [
+            'driver' => 'local',
+            'root' => public_path() . '/assets/Shipping/',
+        ],
+        
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
