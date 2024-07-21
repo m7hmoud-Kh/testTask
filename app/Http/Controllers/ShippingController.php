@@ -50,15 +50,7 @@ class ShippingController extends Controller
             'success' => 'Shipping Added Successfully',
         ]);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
+    
     /**
      * Show the form for editing the specified resource.
      */

@@ -39,4 +39,19 @@ class Shipping extends Model
     {
         return self::PATH_SHIPPING . $value;
     }
+
+    public function getStatusName($value)
+    {
+        switch ($value) {
+            case '0':
+                return '<span class="badge text-bg-warning">Pending</span>';
+            case '1':
+                return '<span class="badge text-bg-info">Progress</span>';
+            case '2':
+                return '<span class="badge text-bg-success">Done</span>';
+            default:
+                # code...
+                break;
+        }
+    }
 }

@@ -33,10 +33,9 @@ Shipping
             <td>{{$shipping->weight}}</td>
             <td>{{$shipping->description}}</td>
             <td>{{$shipping->price}}</td>
-            <td>{{$shipping->status}}</td>
+            <td>{!!$shipping->getStatusName($shipping->status)!!}</td>
             <td>
                 <a href="{{route('shipping.edit',$shipping->id)}}" class="btn btn-primary">Edit</a>
-            <!-- Delete link styled as a button -->
                 <a href="#" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $shipping->id }}').submit();">
                     Delete
                 </a>
