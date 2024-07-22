@@ -35,7 +35,7 @@
 
     <div class="mb-3">
         <label for="status" class="form-label">Status</label>
-        <select name="status" id="status" class="form-control">
+        <select name="status" id="status">
             <option value="0" @if ($shipping->status == 0)
                 selected
             @endif >Pending</option>

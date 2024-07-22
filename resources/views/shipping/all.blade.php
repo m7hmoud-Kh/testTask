@@ -35,7 +35,12 @@ Shipping
             <td>{{$shipping->price}}</td>
             <td>{!!$shipping->getStatusName($shipping->status)!!}</td>
             <td>
+                @if ($shipping->status == 2)
+                <a href="{{route('journals.create',$shipping->id)}}" class="btn btn-success">Add Journal</a>
+                <a href="{{route('journals.index',$shipping->id)}}" class="btn btn-success">show Journal</a>
+                @else
                 <a href="{{route('shipping.edit',$shipping->id)}}" class="btn btn-primary">Edit</a>
+                @endif
                 <a href="#" class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $shipping->id }}').submit();">
                     Delete
                 </a>
