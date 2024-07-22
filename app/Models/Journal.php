@@ -15,4 +15,27 @@ class Journal extends Model
         return $this->belongsTo(Shipping::class);
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+        static::saving(function ($model) {
+            $model->setAmountBasedOnType();
+        });
+    }
+
+
+    public function setAmountBasedOnType()
+    {
+        if($this->attributes['type'] == 'Debit Cash'){
+            $this->attributes['amount'] = $this->shipping->price;
+        }elseif ($this->attributes['type'] == 'Credit Revenue' ){
+            $this->attributes['amount'] = ($this->shipping->price / 100 ) * 20;
+        }elseif ($this->attributes['type'] == 'Credit Payable') {
+            $this->attributes['amount'] = ($this->shipping->price / 100 ) * 80;
+        }
+    }
+
+
+
+
 }
